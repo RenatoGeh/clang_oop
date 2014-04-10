@@ -1,51 +1,48 @@
 #ifndef _CLASS_H
 #define _CLASS_H
 
+/* A Pseudo-Object-Oriented-Programming (POOP) System for the C Language.
+ * 
+ * Author: Renato Lui Geh
+ *
+*/
+
+#include <stdlib.h>
+
+/* Definition of extends. */
+#define extends(class_name) class_name* super
+
 /* Definition of a class. */
-#define class(name) typedef struct __struct_##name ##name; \
-                    ##name* ##name::init(); \
-                    void ##name::##name(##name*); \
-                    void ##name::destroy(##name*); \
-                    void ##name::~##name(##name*); \
+#define class(name) typedef struct __struct_##name name; \
+                    name* name##__init(); \
+                    void name##__##name(name*); \
+                    void name##__destroy(name*); \
+                    void name##__destructor__##name(name*); \
                     struct __struct_##name
 
-class(Object) {
-    int id;
-};
-
 /* Definition of a constructor of a class. */
-
-#define constructor(name)   ##name* ##name::init() { \
-                                ##name* selfie = (##name*)malloc(sizeof(##name)); \
-                                ##name::##name(selfie); \
-                                return selfie; \
-                            } void ##name::##name(##name* this)
-
-constructor(Object) {
-    this->id = 0;
-} 
+#define constructor(name)   name* name##__init() { \
+                                name* this = (name*)malloc(sizeof(name)); \
+                                name##__##name(this); \
+                                return this; \
+                            } void name##__##name(name* this)
 
 /* Definition of the 'new' keyword. */
-#define new(name) ##name::init()
-
+#define new(name) name##__init()
 
 /* Definition of a destructor of a class. */
-#define destructor(name)    ##name* ##name::destroy(##name* selfie) { \
-                                ##name::~##name(selfie); \
+#define destructor(name)    void name##__destroy(name* selfie) { \
+                                name##__destructor__##name(selfie); \
                                 free(selfie); \
-                            } void ##name::~##name(##name* this)
-
-destructor(Object) {
-
-}
+                            } void name##__destructor__##name(name* this)
 
 /* Definition of the 'delete' keyword. */
-#define delete(name, inst) ##name::destroy(inst);
+#define delete(name, inst) name##__destroy(inst)
 
-/*  Thus a complete example on this pseudo-OOP system would be:
+/*  Thus a complete example on this POOP system would be:
  *
  *  class(YTwist) {
- *      char* error = "Unexpected ending.";
+ *      const char* error = "Unexpected ending.";
  *      List elements;
  *      int current;
  *      // A function do_the_twist:R->R that twists the Y-axis.
