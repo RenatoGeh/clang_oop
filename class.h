@@ -9,6 +9,11 @@
 
 #include <stdlib.h>
 
+typedef enum {
+    false,
+    true
+} bool;
+
 /* Definition of extends. */
 #define extends(class_name) class_name* super
 
@@ -39,7 +44,9 @@
 /* Definition of the 'delete' keyword. */
 #define delete(name, inst) name##__destroy(inst)
 
-/*  Thus a complete example on this POOP system would be:
+#define decl_func(classname, name) Class##name_##name
+    
+/*  A complete example on this POOP system would be:
  *
  *  class(YTwist) {
  *      const char* error = "Unexpected ending.";
@@ -47,7 +54,7 @@
  *      int current;
  *      // A function do_the_twist:R->R that twists the Y-axis.
  *      double (*do_the_twist)(YTwist*, double); 
- *  }
+ *  };
  *
  *  Here we can see we can give constant values to members just as
  *  we would in a struct. We can also have other classes as members.
