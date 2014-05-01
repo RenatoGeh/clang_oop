@@ -13,15 +13,6 @@ class(String) {
 	int length;
 };
 
-constructor(String) {
-	this->value = (char*) malloc(DEF_INIT_LEN*sizeof(char));
-	this->length = DEF_INIT_LEN;
-}
-
-destructor(String) {
-	free(this->value);
-}
-
 String* String_set(String*, char*);
 
 String* String_concat(String*, char*);

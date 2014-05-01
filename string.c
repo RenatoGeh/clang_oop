@@ -1,6 +1,15 @@
 #include <string.h>
 #include "string.h"
 
+constructor(String) {
+	this->value = (char*) malloc(DEF_INIT_LEN*sizeof(char));
+	this->length = DEF_INIT_LEN;
+}
+
+destructor(String) {
+	free(this->value);
+}
+
 static bool String_autocheck(String* this, int n) {
 	int m = strlen(this->value);
 

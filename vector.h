@@ -2,23 +2,12 @@
 #define _VECTOR_H
 
 #include "class.h"
+#include "string.h"
 
 class(Vector) {
-	union {
-		struct {
-			double x;
-			double y;
-			double z;
-		};
-		double axis[3];
-	}
+	double x;
+	double y;
 };
-
-constructor(Vector) {
-	this->x = this->y = 0;
-}
-
-destructor(Vector) {}
 
 Vector* Vector_set(Vector*, double, double);
 
