@@ -1,8 +1,6 @@
 #ifndef _H_STRING
 #define _H_STRING
 
-#define DEF_INIT_LEN 4
-
 #include "class.h"
 
 /* A very basic String class implementation. */

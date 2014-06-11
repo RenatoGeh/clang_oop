@@ -7,13 +7,14 @@
 class(Vector) {
 	double x;
 	double y;
+	double z;
 };
 
-Vector* Vector_set(Vector*, double, double);
+Vector* Vector_set(Vector*, double, double, double);
 
-Vector* Vector_add(Vector*, double, double);
+Vector* Vector_add(Vector*, double, double, double);
 
-Vector* Vector_mult(Vector*, double, double);
+Vector* Vector_mult(Vector*, double, double, double);
 
 Vector* Vector_normalize(Vector*);
 

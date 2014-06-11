@@ -17,7 +17,10 @@
 /* End of Gambs */
 
 constructor(Vector) {
-	this->x = this->y = 0;
+	this->x = this->y = this->z = 0;
+	if(n_args > 0) this->x = get_args(double);
+	if(n_args > 1) this->y = get_args(double);
+	if(n_args > 2) this->z = get_args(double);
 }
 
 destructor(Vector) {}
@@ -33,47 +36,50 @@ static char* ftos(double n) {
 	return num;
 }
 
-Vector* Vector_set(Vector* this, double x, double y) {
+Vector* Vector_set(Vector* this, double x, double y, double z) {
 	this->x = x;
 	this->y = y;
+	this->z = z;
 	return this;
 }
 
-Vector* Vector_add(Vector* this, double x, double y) {
+Vector* Vector_add(Vector* this, double x, double y, double z) {
 	this->x += x;
 	this->y += y;
+	this->z += z;
 	return this;
 }
 
-Vector* Vector_mult(Vector* this, double x, double y) {
+Vector* Vector_mult(Vector* this, double x, double y, double z) {
 	this->x *= x;
 	this->y *= y;
+	this->z *= z;
 	return this;
 }
 
 Vector* Vector_normalize(Vector* this) {
-	double hip = sqrt(this->x*this->x + this->y*this->y);
-	this->x /= hip;
-	this->y /= hip;
+	double norm = sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
+	this->x /= norm;
+	this->y /= norm;
+	this->z /= norm;
 	return this;
 }
 
 Vector* Vector_clone(Vector* this) {
-	Vector* copy = new(Vector);
-	copy->x = this->x;
-	copy->y = this->y;
-	return copy;
+	return new(Vector)(3, this->x, this->y, this->z);
 }
 
 String* Vector_toString(Vector* this) {
 	char* x_str = ftos(this->x);
 	char* y_str = ftos(this->y);
+	char* z_str = ftos(this->z);
 	int x_str_len = strlen(x_str);
 	int y_str_len = strlen(y_str);
-	char* str = (char*) malloc((x_str_len+y_str_len+5)*sizeof(char));
-	String* result = new(String);
+	int z_str_len = strlen(z_str);
+	char* str = (char*) malloc((x_str_len+y_str_len+z_str_len+7)*sizeof(char));
+	String* result = new(String)(0);
 
-	sprintf(str, "[%s, %s]", x_str, y_str);
+	sprintf(str, "[%s, %s, %s]", x_str, y_str, z_str);
 
 	String_set(result, str);
 

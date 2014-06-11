@@ -1,9 +1,13 @@
 #include <string.h>
 #include "string.h"
 
+#define DEF_INIT_LEN 4
+
 constructor(String) {
-	this->value = (char*) malloc(DEF_INIT_LEN*sizeof(char));
-	this->length = DEF_INIT_LEN;
+	if(n_args == 0) {
+		this->value = (char*) malloc(DEF_INIT_LEN*sizeof(char));
+		this->length = DEF_INIT_LEN;
+	} else String_set(this, get_args(char*));
 }
 
 destructor(String) {
@@ -53,7 +57,7 @@ String* String_resize(String* this, int size) {
 }
 
 String* String_clone(String* this) {
-	String* copy = new(String);
+	String* copy = new(String)(0);
 	strcpy(copy->value, this->value);
 	copy->length = this->length;
 	copy->ptr_size = this->ptr_size;
